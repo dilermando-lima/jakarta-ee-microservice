@@ -1,0 +1,13 @@
+dependencies {
+    implementation libs.bundles.log
+}
+
+jar {
+    manifest {
+        attributes (
+			'Multi-Release': 'true'
+		)
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE 
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+}

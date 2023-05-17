@@ -1,0 +1,11 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.inlayHints.parameterNames.enabled": "none",
+    "debug.console.historySuggestions": false,
+    "files.exclude": {
+        // "**/bin/": true,
+        // "**/build/": true,
+        // ".gradle/":true,
+
+    }
+}

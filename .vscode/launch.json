@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "test.App",
+            "request": "launch",
+            "env": {"TEMP_ATTR2":654654},
+            "mainClass": "test.App",
+            "projectName": "api-test"
+        },
+        {
+            "type": "java",
+            "name": "demo.App",
+            "request": "launch",
+            "console": "internalConsole",
+            "env": {"TEMP_ATTR2":654654},
+            "mainClass": "demo.App",
+            "projectName": "test-jkt"
+        }
+    ]
+}
