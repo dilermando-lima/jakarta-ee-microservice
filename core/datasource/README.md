@@ -1,5 +1,15 @@
 # CORE DATASOURCE
 
+## required dependencies
+
+```
+dependencies {
+   implementation project(':core-datasource') // this project
+   implementation project(':core-log')      // required in nested project
+   implementation libs.postgresql.driver    // required in nested project
+}
+```
+
 ## Example
 ```java
 

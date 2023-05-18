@@ -31,7 +31,7 @@ public class DatasourceRegister {
         Objects.requireNonNull(datasourceName);
 
         if( !datasourceProviderMap.containsKey(datasourceName))
-            throw new RuntimeException("datasource %s has not been registered");
+            throw new RuntimeException("datasource %s has not been registered".formatted(datasourceName));
 
         if( !entityManagerFactoryMap.containsKey(datasourceName) ){
             logger.debug("retrieveEntityManagerFactory() : creaing a new EntityManagerFactory datasourceName = {}",datasourceName);

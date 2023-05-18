@@ -1,8 +1,5 @@
 
 dependencies {
-   implementation project(':core-datasource')
-   implementation project(':core-log')
-   implementation libs.postgresql.driver
 
 }
 

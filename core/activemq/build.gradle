@@ -4,14 +4,9 @@ configurations{
     configurations.implementation.extendsFrom(configurations.libJar)
 }
 
-configurations.all{
-    exclude group: 'jakarta.inject', module: 'jakarta.inject-api'
-    exclude group: 'org.glassfish.jaxb', module: 'jaxb-runtime'
-    exclude group: 'io.smallrye', module: 'jandex'
-}
 
 dependencies {
-    libJar libs.bundles.orm
+    libJar libs.activemq.client.jakarta
     compileOnly libs.bundles.log
 }
 

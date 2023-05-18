@@ -1,6 +1,6 @@
 
 /* ======= CORE PROJECTS ======== */
-// include ':core-activemq'; project(':core-activemq').projectDir = new File('core/activemq')
+include ':core-activemq'; project(':core-activemq').projectDir = new File('core/activemq')
 include ':core-config'; project(':core-config').projectDir = new File('core/config')
 include ':core-log'; project(':core-log').projectDir = new File('core/log')
 include ':core-datasource'; project(':core-datasource').projectDir = new File('core/datasource')
