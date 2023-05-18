@@ -4,7 +4,7 @@
             "type": "java",
             "name": "test.App",
             "request": "launch",
-            "env": {"TEMP_ATTR2":654654},
+            "console": "internalConsole",
             "mainClass": "test.App",
             "projectName": "api-test"
         },
@@ -13,7 +13,6 @@
             "name": "demo.App",
             "request": "launch",
             "console": "internalConsole",
-            "env": {"TEMP_ATTR2":654654},
             "mainClass": "demo.App",
             "projectName": "test-jkt"
         }

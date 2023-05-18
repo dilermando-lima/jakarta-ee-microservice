@@ -1,11 +1,9 @@
 
-group='demo'
-version='1.0.0'
-
 dependencies {
+   implementation project(':core-datasource')
    implementation project(':core-log')
+   implementation libs.postgresql.driver
 
-	
 }
 
 jar {

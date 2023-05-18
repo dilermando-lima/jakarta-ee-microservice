@@ -1,9 +1,11 @@
+
 configurations{
     libJar
-    configurations.compileClasspath.extendsFrom(configurations.libJar)
+    configurations.implementation.extendsFrom(configurations.libJar)
 }
 
 dependencies {
+    libJar libs.bundles.orm
     compileOnly libs.bundles.log
 }
 

@@ -51,7 +51,7 @@ public class LogConfig {
         return this;
     }
 
-    public void build() {
+    public void configure() {
 
         ConfigurationBuilder<BuiltConfiguration> builder = ConfigurationBuilderFactory.newConfigurationBuilder();
         logConsole.buildLogger(builder);

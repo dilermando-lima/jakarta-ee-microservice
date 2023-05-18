@@ -3,7 +3,7 @@
 // include ':core-activemq'; project(':core-activemq').projectDir = new File('core/activemq')
 include ':core-config'; project(':core-config').projectDir = new File('core/config')
 include ':core-log'; project(':core-log').projectDir = new File('core/log')
-// include ':core-datasource'; project(':core-datasource').projectDir = new File('core/datasource')
+include ':core-datasource'; project(':core-datasource').projectDir = new File('core/datasource')
 // include ':core-rest'; project(':core-rest').projectDir = new File('core/rest')
 
 /* ======= API PROJECTS ======== */
@@ -22,22 +22,19 @@ dependencyResolutionManagement {
             library('jersey-container-jdk-http', 'org.glassfish.jersey.containers:jersey-container-jdk-http:3.1.1')
             library('jersey-cdi2-se', 'org.glassfish.jersey.inject:jersey-cdi2-se:3.1.1')
             library('jersey-media-json-jackson', 'org.glassfish.jersey.media:jersey-media-json-jackson:3.1.1')
-
+            bundle('api', ['jersey-server', 'jersey-container-jdk-http', 'jersey-cdi2-se','jersey-media-json-jackson'])
+            
             library('log4j-core', 'org.apache.logging.log4j:log4j-core:2.20.0')
             library('log4j-slf4j2-impl', 'org.apache.logging.log4j:log4j-slf4j2-impl:2.20.0')
-
-            library('activemq-client-jakarta', 'org.apache.activemq:activemq-client-jakarta:5.18.1')
+            bundle('log',['log4j-core','log4j-slf4j2-impl'])
 
             library('hibernate-core', 'org.hibernate.orm:hibernate-core:6.2.2.Final')
-            library('postgresql-driver', 'org.postgresql:postgresql:42.6.0')
             library('hikaricp', 'com.zaxxer:HikariCP:5.0.1')
+            bundle('orm',['hibernate-core','hikaricp'])
+            
+            library('postgresql-driver', 'org.postgresql:postgresql:42.6.0')
+            library('activemq-client-jakarta', 'org.apache.activemq:activemq-client-jakarta:5.18.1')
 
-
-            bundle('api', ['jersey-server', 'jersey-container-jdk-http', 'jersey-cdi2-se','jersey-media-json-jackson'])
-            bundle('log',['log4j-core','log4j-slf4j2-impl'])
-            bundle('orm.postgres',['hibernate-core','postgresql-driver','hikaricp'])
-            bundle('activemq',['activemq-client-jakarta'])
-        
         }
     }
 }
