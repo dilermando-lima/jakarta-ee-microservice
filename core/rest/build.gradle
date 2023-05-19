@@ -1,0 +1,22 @@
+
+configurations{
+    libJar
+    configurations.implementation.extendsFrom(configurations.libJar)
+}
+
+dependencies {
+    libJar libs.bundles.rest
+    compileOnly libs.bundles.log
+}
+
+sourceSets.main.java.srcDirs += sourceSets.main.resources.srcDirs
+
+jar {
+    manifest {
+        attributes (
+			'Multi-Release': 'true'
+		)
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from { configurations.libJar.collect { it.isDirectory() ? it : zipTree(it) } }
+}

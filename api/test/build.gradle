@@ -1,6 +1,7 @@
 
 dependencies {
-
+    implementation project(':core-rest')
+   // implementation project(':core-log')
 }
 
 jar {

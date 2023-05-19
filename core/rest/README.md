@@ -1,4 +1,17 @@
-package test;
+# CORE REST
+
+## required dependencies
+
+```
+dependencies {
+   implementation project(':core-rest')
+   implementation project(':core-log')
+}
+
+```
+
+## Example
+```java
 
 import core.rest.RestApp;
 import jakarta.ws.rs.core.Application;
@@ -16,3 +29,6 @@ public class App extends Application{
     }
 
 }
+
+```
+       
