@@ -6,22 +6,19 @@ include ':core-log'; project(':core-log').projectDir = new File('core/log')
 include ':core-datasource'; project(':core-datasource').projectDir = new File('core/datasource')
 include ':core-rest'; project(':core-rest').projectDir = new File('core/rest')
 
-/* ======= API PROJECTS ======== */
-// include ':api-company'; project(':api-company').projectDir = new File('api/company')
-include ':api-test'; project(':api-test').projectDir = new File('api/test')
-
-/* ======= CONSUMER PROJECTS ======== */
-// include ':consumer-company'; project(':consumer-company').projectDir = new File('consumer/company')
+/* ======= MICROSERVICES PROJECTS ======== */
+include ':ms-company'; project(':ms-company').projectDir = new File('microservices/ms-company')
+// include ':ms-employee'; project(':ms-employee').projectDir = new File('microservices/ms-employee')
 
 
 dependencyResolutionManagement {
     versionCatalogs {
         libs {
 
-            library('jersey-server', 'org.glassfish.jersey.core:jersey-server:3.1.1')
-            library('jersey-container-jdk-http', 'org.glassfish.jersey.containers:jersey-container-jdk-http:3.1.1')
-            library('jersey-cdi2-se', 'org.glassfish.jersey.inject:jersey-cdi2-se:3.1.1')
-            library('jersey-media-json-jackson', 'org.glassfish.jersey.media:jersey-media-json-jackson:3.1.1')
+            library('jersey-server', 'org.glassfish.jersey.core:jersey-server:3.1.2')
+            library('jersey-container-jdk-http', 'org.glassfish.jersey.containers:jersey-container-jdk-http:3.1.2')
+            library('jersey-cdi2-se', 'org.glassfish.jersey.inject:jersey-cdi2-se:3.1.2')
+            library('jersey-media-json-jackson', 'org.glassfish.jersey.media:jersey-media-json-jackson:3.1.2')
             library('jandex', 'org.jboss:jandex:3.1.1')
             bundle('rest', ['jersey-server', 'jersey-container-jdk-http', 'jersey-cdi2-se','jersey-media-json-jackson','jandex'])
             
@@ -29,7 +26,7 @@ dependencyResolutionManagement {
             library('log4j-slf4j2-impl', 'org.apache.logging.log4j:log4j-slf4j2-impl:2.20.0')
             bundle('log',['log4j-core','log4j-slf4j2-impl'])
 
-            library('hibernate-core', 'org.hibernate.orm:hibernate-core:6.2.2.Final')
+            library('hibernate-core', 'org.hibernate.orm:hibernate-core:6.2.3.Final')
             library('hikaricp', 'com.zaxxer:HikariCP:5.0.1')
             bundle('orm',['hibernate-core','hikaricp'])
             

@@ -1,0 +1,20 @@
+
+dependencies {
+    implementation project(':core-rest')
+    implementation project(':core-log')
+    implementation project(':core-datasource')
+    implementation project(':core-activemq')
+    implementation project(':core-config')
+    implementation libs.postgresql.driver
+}
+
+jar {
+    manifest {
+        attributes (
+			'Main-Class': 'company.App',
+			'Multi-Release': 'true'
+		)
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE 
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+}

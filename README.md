@@ -1,4 +1,4 @@
-# MICROSERVES JAKARTA EE 10 WITH EMBEDED SERVER
+# MICROSERVICES JAKARTA EE 10 WITH EMBEDDED SERVER
 
 This is a project to show how to create microservices on jakarta ee 10 with embeded server using:
   - `jersey` as embeded server rest container

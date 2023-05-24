@@ -9,8 +9,6 @@ dependencies {
     compileOnly libs.bundles.log
 }
 
-sourceSets.main.java.srcDirs += sourceSets.main.resources.srcDirs
-
 jar {
     manifest {
         attributes (

@@ -1,5 +1,8 @@
 package core.rest;
 
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
+
 import org.glassfish.jersey.server.ResourceConfig;
 
 import jakarta.ws.rs.SeBootstrap;
@@ -7,6 +10,9 @@ import jakarta.ws.rs.core.Application;
 
 
 public class RestApp {
+
+    private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(RestApp.class);
+ 
 
     public final Class<? extends Application> appClass;
     public String rootPath = null;
@@ -43,20 +49,47 @@ public class RestApp {
     }
 
     public void start() throws Exception{
+
+        
+
+        final String protocolo = "HTTP"; 
+        packages = packages == null ? new String[]{appClass.getPackageName()} : packages;
+        host = host == null ? "localhost" : host;
+        port = port == null ? 8080 : port;
+        rootPath = rootPath == null ? "/" : rootPath;
+
+
+        packages = Stream
+                    .concat(
+                        Stream.of(packages), 
+                        Stream.of(new String[]{RestApp.class.getPackageName()})
+                    ).toArray(String[]::new);
+
+        logger.info("start() : appClass = {} endpoint = {}:{}{} ",appClass,host,port,rootPath);
+        logger.debug("start() : packages = {}",(Object) packages);
+
         var config = ResourceConfig
                 .forApplicationClass(appClass)
-                .packages(packages == null ? new String[]{appClass.getPackageName()} : packages )
+                .setClassLoader(appClass.getClassLoader())
+                .packages(packages)
                 .property("jersey.config.server.wadl.disableWadl", "true");
+
+        logger.debug("start() : appClass = {} ", config.getApplication());
+
 
         var server = SeBootstrap.Configuration
                 .builder()
-                .property(SeBootstrap.Configuration.PROTOCOL, "HTTP")
-                .property(SeBootstrap.Configuration.HOST, host == null ? "localhost" : host)
-                .property(SeBootstrap.Configuration.PORT, port == null ? 8080 : port)
-                .property(SeBootstrap.Configuration.ROOT_PATH, rootPath == null ? "/" : rootPath)
+                .property(SeBootstrap.Configuration.PROTOCOL, protocolo)
+                .property(SeBootstrap.Configuration.HOST, host)
+                .property(SeBootstrap.Configuration.PORT, port)
+                .property(SeBootstrap.Configuration.ROOT_PATH, rootPath)
                 .build();
 
-        SeBootstrap.start(config,server);
+        logger.debug("start() : Starting server");
+
+        SeBootstrap.start(config,server).toCompletableFuture().get(60, TimeUnit.MINUTES);
+
+        logger.debug("start() : Server has been started successfully");
 
         Thread.currentThread().join();
 

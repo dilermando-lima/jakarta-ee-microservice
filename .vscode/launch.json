@@ -10,11 +10,11 @@
         },
         {
             "type": "java",
-            "name": "demo.App",
+            "name": "ms-company",
             "request": "launch",
             "console": "internalConsole",
-            "mainClass": "demo.App",
-            "projectName": "test-jkt"
+            "mainClass": "company.App",
+            "projectName": "ms-company"
         }
     ]
 }
