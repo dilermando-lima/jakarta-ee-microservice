@@ -1,6 +1,5 @@
 package core.rest;
 
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import org.glassfish.jersey.server.ResourceConfig;
@@ -72,9 +71,8 @@ public class RestApp {
                 .forApplicationClass(appClass)
                 .setClassLoader(appClass.getClassLoader())
                 .packages(packages)
-                .property("jersey.config.server.wadl.disableWadl", "true");
-
-        logger.debug("start() : appClass = {} ", config.getApplication());
+                .property("jersey.config.server.wadl.disableWadl", "true")
+                .property("jersey.config.server.provider.classnames", "org.glassfish.jersey.jackson.JacksonFeature");
 
 
         var server = SeBootstrap.Configuration
@@ -87,7 +85,7 @@ public class RestApp {
 
         logger.debug("start() : Starting server");
 
-        SeBootstrap.start(config,server).toCompletableFuture().get(60, TimeUnit.MINUTES);
+        SeBootstrap.start(config,server);
 
         logger.debug("start() : Server has been started successfully");
 

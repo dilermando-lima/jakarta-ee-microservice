@@ -1,3 +1,21 @@
+plugins{
+    id 'java'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+sourceCompatibility=17
+targetCompatibility=17
+
+sourceSets {
+    main.java.srcDirs = ['src']
+    main.resources.srcDirs = ['src-resource']
+    test.java.srcDirs = ['tst']
+    test.resources.srcDirs = ['tst-resource']
+}
 
 configurations{
     libJar

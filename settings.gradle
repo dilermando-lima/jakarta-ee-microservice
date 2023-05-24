@@ -18,10 +18,11 @@ dependencyResolutionManagement {
             library('jersey-server', 'org.glassfish.jersey.core:jersey-server:3.1.2')
             library('jersey-container-jdk-http', 'org.glassfish.jersey.containers:jersey-container-jdk-http:3.1.2')
             library('jersey-cdi2-se', 'org.glassfish.jersey.inject:jersey-cdi2-se:3.1.2')
-            library('jersey-media-json-jackson', 'org.glassfish.jersey.media:jersey-media-json-jackson:3.1.2')
             library('jandex', 'org.jboss:jandex:3.1.1')
-            bundle('rest', ['jersey-server', 'jersey-container-jdk-http', 'jersey-cdi2-se','jersey-media-json-jackson','jandex'])
-            
+            library('jersey-media-json-jackson', 'org.glassfish.jersey.media:jersey-media-json-jackson:3.1.2')
+            bundle('rest', ['jersey-server', 'jersey-container-jdk-http', 'jersey-cdi2-se','jandex','jersey-media-json-jackson'])
+
+
             library('log4j-core', 'org.apache.logging.log4j:log4j-core:2.20.0')
             library('log4j-slf4j2-impl', 'org.apache.logging.log4j:log4j-slf4j2-impl:2.20.0')
             bundle('log',['log4j-core','log4j-slf4j2-impl'])

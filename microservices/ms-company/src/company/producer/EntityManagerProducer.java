@@ -1,8 +1,10 @@
-package company.config;
+package company.producer;
 
 import java.util.Map;
 
 import company.model.Company;
+import company.propertie.EnvDatasourceProporties;
+import core.config.ConfigLoad;
 import core.datasource.DatasourceProvider;
 import core.datasource.DatasourceProvider.ConnectionProperties;
 import core.datasource.DatasourceRegister;
@@ -21,7 +23,8 @@ public class EntityManagerProducer {
 
     @PostConstruct
     public void init(){
-        registerDatabase1();
+        var envDatasource = ConfigLoad.envAsBean(EnvDatasourceProporties.class);
+        registerDatabase1(envDatasource);
     }
 
     @Produces
@@ -31,8 +34,11 @@ public class EntityManagerProducer {
         return DatasourceRegister.retrieveEntityManager(DATABASE_1_NAME);
     }
 
-    private void registerDatabase1(){
-        logger.debug("registerDatabase1() : dasourceName = {}", DATABASE_1_NAME);
+    private void registerDatabase1(EnvDatasourceProporties envDatasource){
+        logger.debug("registerDatabase1() : dasourceName = {} ", DATABASE_1_NAME);
+
+    
+
         DatasourceRegister.registerDatasource(
             DatasourceProvider
                 .init(DATABASE_1_NAME,
@@ -42,9 +48,9 @@ public class EntityManagerProducer {
                         )
                         .driverClassName("org.postgresql.Driver")
                         .dialect(org.hibernate.dialect.PostgreSQLDialect.class)
-                        .jdbcUrl("jdbc:postgresql://localhost:5432/postgres")
-                        .password("admin")
-                        .username("admin")
+                        .jdbcUrl(envDatasource.DATABASE1_JDBC_URL())
+                        .username(envDatasource.DATABASE1_USERNAME())
+                        .password(envDatasource.DATABASE1_PASS())
                 )
                 .registerEntity(Company.class)
         );

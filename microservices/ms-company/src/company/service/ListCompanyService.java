@@ -2,7 +2,7 @@ package company.service;
 
 import java.util.List;
 
-import company.config.EntityManagerProducer;
+import company.producer.EntityManagerProducer;
 import company.model.Company;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;

@@ -1,6 +1,6 @@
 package company.service;
 
-import company.config.EntityManagerProducer;
+import company.producer.EntityManagerProducer;
 import company.model.Company;
 import core.datasource.EntityManagerCommit;
 import core.rest.exception.Throw;

@@ -38,13 +38,12 @@ public class ConfigLoad {
 
         public static ConfigLoadBuilder init(Class<?> classMain, String [] args , String fileConfig){
             logger.debug("init() : classMain = {}, args = {}, fileConfig = {}", classMain, args, fileConfig);
-            Objects.requireNonNull(fileConfig);
             Objects.requireNonNull(classMain);
             return new ConfigLoadBuilder(args, classMain, fileConfig);
         }
 
         public ConfigLoadBuilder registerConfig(Class<? extends Record> configBean){
-            logger.debug("registerConfig() : configBean", configBean);
+            logger.debug("registerConfig() : configBean = {}", configBean.getName());
             Objects.requireNonNull(configBean);
             listConfigBean.add(configBean);
             return this;
@@ -122,7 +121,7 @@ public class ConfigLoad {
         Properties config = new Properties();
         try {
             config.load(classMain.getClassLoader().getResourceAsStream(fileName));
-            logger.debug("{}.properties has been found sucessfully");
+            logger.debug("{} has been found sucessfully",fileName);
 
             mapFromFileResource.putAll(
                 config.entrySet().stream().collect(
@@ -133,7 +132,7 @@ public class ConfigLoad {
                 )
             );
         } catch (IOException e) {
-            logger.warn("{}.properties has been ignored or not found.",fileName);
+            logger.warn("{} has been ignored or not found.",fileName);
         }
         
         return mapFromFileResource;
@@ -181,11 +180,11 @@ public class ConfigLoad {
         }
     }
 
-    public static synchronized Record envAsBean(Class<? extends Record> record){
+    public static synchronized <T> T envAsBean(Class<T> record){
         if( record == null ) return null;
         Record config = beanMap.get(record.getName());
         if( config == null ) return null;
-        return config;
+        return record.cast(config);
     }
 
 }
