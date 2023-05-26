@@ -25,7 +25,7 @@ public class GetCompanyByIdService {
         validateRequest(id);
 
         var companyModel = getByIdFromDatabase(id);
-        Throw.notFound(logger,"company with id = {} not found".formatted(id), companyModel == null);
+        Throw.notFound(logger,"company with id = %s not found".formatted(id), companyModel == null);
         
         var response = convertModelToResponse(companyModel);
         logger.debug("getById() :  response = {}", response);

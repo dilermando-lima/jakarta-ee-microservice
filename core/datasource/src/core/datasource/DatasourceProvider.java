@@ -2,6 +2,7 @@ package core.datasource;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,12 @@ public class DatasourceProvider {
         return datasourceName;
     }
 
+
+
+    @Override
+    public String toString() {
+        return "DatasourceProvider [datasourceName=" + datasourceName + "]";
+    }
 
     public static DatasourceProvider init(String datasourceName, ConnectionProperties connectionProperties){
         logger.debug("init() : datasourceName = {}, connectionProperties = {}",datasourceName,connectionProperties);
@@ -70,7 +77,7 @@ public class DatasourceProvider {
     }
 
     public static class ConnectionProperties{
-        private Map<String,Object> connectionPropertiesMap = defaultConnectionProperties();
+        private final Map<String,Object> connectionPropertiesMap;
 
         @Override
         public String toString() {
@@ -83,6 +90,19 @@ public class DatasourceProvider {
             this.connectionPropertiesMap = defaultConnectionProperties();
             if( properties != null )
                 this.connectionPropertiesMap.putAll(properties);
+        }
+
+        private Map<String,Object> defaultConnectionProperties(){
+            Map<String, Object> map = new HashMap<>();
+            map.put("hibernate.hbm2ddl.auto", org.hibernate.tool.schema.Action.NONE);
+            map.put("hibernate.show_sql", false);
+            map.put("hibernate.format_sql", false);
+            map.put("hibernate.connection.provider_class", HikariConnectionProvider.class);
+            map.put("hibernate.hikari.maximumPoolSize","3");
+            map.put("hibernate.hikari.maxLifetime", "15000");
+            map.put("hibernate.hikari.minimumIdle", "5");
+            map.put("hibernate.hikari.autoCommit", false);
+            return map;
         }
 
         public static ConnectionProperties init(){
@@ -123,18 +143,7 @@ public class DatasourceProvider {
         }
     }
 
-    private static Map<String,Object> defaultConnectionProperties(){
-        Map<String, Object> map = new HashMap<>();
-        map.put("hibernate.hbm2ddl.auto", org.hibernate.tool.schema.Action.NONE);
-        map.put("hibernate.show_sql", "false");
-        map.put("hibernate.format_sql", "false");
-        map.put("hibernate.connection.provider_class", HikariConnectionProvider.class);
-        map.put("hibernate.hikari.maximumPoolSize","3");
-        map.put("hibernate.hikari.maxLifetime", "15000");
-        map.put("hibernate.hikari.minimumIdle", "5");
-        map.put("hibernate.hikari.autoCommit", "false");
-        return map;
-    }
+  
 
     private PersistenceUnitInfo getUnitInfo() {
         return new PersistenceUnitInfo() {
@@ -157,12 +166,12 @@ public class DatasourceProvider {
         
             @Override
             public List<String> getMappingFileNames() {
-                return null;
+                return Collections.emptyList();
             }
 
             @Override
             public List<URL> getJarFileUrls() {
-                return null;
+                return Collections.emptyList();
             }
 
             @Override
@@ -192,7 +201,7 @@ public class DatasourceProvider {
 
             @Override
             public Properties getProperties() {
-                return null;
+                return new Properties();
             }
 
             @Override
@@ -207,6 +216,7 @@ public class DatasourceProvider {
 
             @Override
             public void addTransformer(ClassTransformer transformer) {
+                throw new UnsupportedOperationException();
             }
 
             @Override

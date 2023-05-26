@@ -4,7 +4,7 @@ import jakarta.ws.rs.core.Response;
 
 public class InternalServerErrorException extends AbstractException {
 
-    private final Response.Status status = Response.Status.INTERNAL_SERVER_ERROR;
+    private static final Response.Status status = Response.Status.INTERNAL_SERVER_ERROR;
 
     public InternalServerErrorException(String msg){
         super(msg);

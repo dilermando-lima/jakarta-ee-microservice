@@ -34,6 +34,17 @@ dependencyResolutionManagement {
             library('postgresql-driver', 'org.postgresql:postgresql:42.6.0')
             library('activemq-client-jakarta', 'org.apache.activemq:activemq-client-jakarta:5.18.1')
 
+
+            library('junit-api','org.junit.jupiter:junit-jupiter-api:5.9.3')
+            library('junit-params','org.junit.jupiter:junit-jupiter-params:5.9.3')
+            library('junit-engine','org.junit.jupiter:junit-jupiter-engine:5.9.3')
+            library('mockito-junit','org.mockito:mockito-junit-jupiter:5.3.1')
+            library('mockito-core','org.mockito:mockito-core:5.3.1')
+            bundle('junit',['junit-api','junit-params','junit-engine','mockito-junit','mockito-core'])
+
+            plugin('sonar', 'org.sonarqube').version('4.0.0.2929')
+
+
         }
     }
 }

@@ -4,7 +4,7 @@ import jakarta.ws.rs.core.Response;
 
 public class NotFoundException extends AbstractException {
 
-    private final Response.Status status = Response.Status.NOT_FOUND;
+    private static final Response.Status status = Response.Status.NOT_FOUND;
 
     public NotFoundException(String msg){
         super(msg);

@@ -13,11 +13,11 @@ public class RestApp {
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(RestApp.class);
  
 
-    public final Class<? extends Application> appClass;
-    public String rootPath = null;
-    public String [] packages = null;
-    public Integer port = null;
-    public String host = null;
+    private final Class<? extends Application> appClass;
+    private String rootPath = null;
+    private String [] packages = null;
+    private Integer port = null;
+    private String host = null;
 
     public static RestApp init(Class<? extends Application> appClass){
         return new RestApp(appClass);
@@ -47,10 +47,18 @@ public class RestApp {
         return this;
     }
 
-    public void start() throws Exception{
+    public static class RestAppException extends RuntimeException {
+        public RestAppException(String msg,Throwable throwable){
+            super(msg,throwable);
+        }
+        public RestAppException(String msg){
+            super(msg);
+        }
+    }
 
-        
+    public void start() throws RestAppException{
 
+    
         final String protocolo = "HTTP"; 
         packages = packages == null ? new String[]{appClass.getPackageName()} : packages;
         host = host == null ? "localhost" : host;
@@ -61,7 +69,7 @@ public class RestApp {
         packages = Stream
                     .concat(
                         Stream.of(packages), 
-                        Stream.of(new String[]{RestApp.class.getPackageName()})
+                        Stream.of(RestApp.class.getPackageName())
                     ).toArray(String[]::new);
 
         logger.info("start() : appClass = {} endpoint = {}:{}{} ",appClass,host,port,rootPath);
@@ -89,7 +97,13 @@ public class RestApp {
 
         logger.debug("start() : Server has been started successfully");
 
-        Thread.currentThread().join();
+        try {
+            Thread.currentThread().join();
+        } catch (InterruptedException e) {
+            logger.error(e);
+            Thread.currentThread().interrupt();
+            throw new RestAppException(protocolo, e);
+        }
 
     }
 

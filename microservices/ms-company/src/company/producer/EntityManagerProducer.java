@@ -37,7 +37,6 @@ public class EntityManagerProducer {
     private void registerDatabase1(EnvDatasourceProporties envDatasource){
         logger.debug("registerDatabase1() : dasourceName = {} ", DATABASE_1_NAME);
 
-    
 
         DatasourceRegister.registerDatasource(
             DatasourceProvider

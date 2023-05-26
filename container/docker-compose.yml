@@ -1,9 +1,9 @@
 version: "3.9"
 
 
-# docker-compose --env-file ./env/local.dev --file ./container/docker-compose.yml up -d
-# docker-compose --env-file ./env/local.dev --file ./container/docker-compose.yml up -d db_mongo
-# docker-compose --env-file ./env/local.dev --file ./container/docker-compose.yml down --remove-orphans
+# docker-compose  --file ./container/docker-compose.yml up -d
+# docker-compose  --file ./container/docker-compose.yml up -d db_mongo
+# docker-compose  --file ./container/docker-compose.yml down --remove-orphans
 
 services:
   postgres:

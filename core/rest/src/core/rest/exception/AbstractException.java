@@ -4,11 +4,11 @@ import jakarta.ws.rs.core.Response;
 
 public abstract class AbstractException extends RuntimeException {
 
-    public AbstractException(String msg){
+    protected AbstractException(String msg){
         super(msg);
     }
 
-    public AbstractException(String msg,Throwable throwable){
+    protected AbstractException(String msg,Throwable throwable){
         super(msg,throwable);
     }
 

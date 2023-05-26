@@ -22,22 +22,25 @@ public class CreateCompanyService {
     public record CreateCompanyResponse(String id, String name){}
 
     public CreateCompanyResponse create(CreateCompanyRequest request){
-
         logger.info("create() :  request = {}", request);
 
         validateRequest(request);
         validateCompanyAlreadyExist(request);
-        var companyModel = convertRequestToModel(request);
 
-        EntityManagerCommit
-            .init(em)
-            .exec(e -> e.persist(companyModel))
-            .commit();
+        var companyModel = convertRequestToModel(request);
+        persistModel(companyModel);
 
         var response = convertModelToResponse(companyModel);
         logger.debug("create() :  response = {}", response);
 
         return response;
+    }
+
+    void persistModel(Company companyModel){
+        EntityManagerCommit
+            .init(em)
+            .exec(e -> e.persist(companyModel))
+            .commit();
     }
 
     void validateRequest(CreateCompanyRequest request){
@@ -67,7 +70,7 @@ public class CreateCompanyService {
                 .getSingleResult() > 0L;
 
         Throw.badRequest(logger, "company with name %s already exists".formatted(request.name()), alreadyExistByName);
-    };
+    }
 
     Company convertRequestToModel(CreateCompanyRequest request){
         logger.debug("convertRequestToModel() :  request = {}", request);

@@ -24,21 +24,21 @@ public class ConfigUtil {
 
     public static Object handleCastingValue(String value, Class<?> type) throws Exception{
 
-        if(CastType.STRING.equals(type)) return CastType.STRING.handler.apply(value);
-        if(CastType.INTEGER.equals(type)) return CastType.INTEGER.handler.apply(value);
-        if(CastType.BOOLEAN.equals(type)) return CastType.BOOLEAN.handler.apply(value);
-        if(CastType.FLOAT.equals(type)) return CastType.FLOAT.handler.apply(value);
-        if(CastType.DOUBLE.equals(type)) return CastType.DOUBLE.handler.apply(value);
-        if(CastType.LONG.equals(type)) return CastType.LONG.handler.apply(value);
-        if(CastType.SHORT.equals(type)) return CastType.SHORT.handler.apply(value);
-        if(CastType.BYTE.equals(type)) return CastType.BYTE.handler.apply(value);
-        if(CastType.INTEGER_PRIMITIVE.equals(type)) return CastType.INTEGER_PRIMITIVE.handler.apply(value);
-        if(CastType.BOOLEAN_PRIMITIVE.equals(type)) return CastType.BOOLEAN_PRIMITIVE.handler.apply(value);
-        if(CastType.FLOAT_PRIMITIVE.equals(type)) return CastType.FLOAT_PRIMITIVE.handler.apply(value);
-        if(CastType.DOUBLE_PRIMITIVE.equals(type)) return CastType.DOUBLE_PRIMITIVE.handler.apply(value);
-        if(CastType.LONG_PRIMITIVE.equals(type)) return CastType.LONG_PRIMITIVE.handler.apply(value);
-        if(CastType.SHORT_PRIMITIVE.equals(type)) return CastType.SHORT_PRIMITIVE.handler.apply(value);
-        if(CastType.BYTE_PRIMITIVE.equals(type)) return CastType.BYTE_PRIMITIVE.handler.apply(value);
+        if(CastType.STRING.compare(type)) return CastType.STRING.handler.apply(value);
+        if(CastType.INTEGER.compare(type)) return CastType.INTEGER.handler.apply(value);
+        if(CastType.BOOLEAN.compare(type)) return CastType.BOOLEAN.handler.apply(value);
+        if(CastType.FLOAT.compare(type)) return CastType.FLOAT.handler.apply(value);
+        if(CastType.DOUBLE.compare(type)) return CastType.DOUBLE.handler.apply(value);
+        if(CastType.LONG.compare(type)) return CastType.LONG.handler.apply(value);
+        if(CastType.SHORT.compare(type)) return CastType.SHORT.handler.apply(value);
+        if(CastType.BYTE.compare(type)) return CastType.BYTE.handler.apply(value);
+        if(CastType.INTEGER_PRIMITIVE.compare(type)) return CastType.INTEGER_PRIMITIVE.handler.apply(value);
+        if(CastType.BOOLEAN_PRIMITIVE.compare(type)) return CastType.BOOLEAN_PRIMITIVE.handler.apply(value);
+        if(CastType.FLOAT_PRIMITIVE.compare(type)) return CastType.FLOAT_PRIMITIVE.handler.apply(value);
+        if(CastType.DOUBLE_PRIMITIVE.compare(type)) return CastType.DOUBLE_PRIMITIVE.handler.apply(value);
+        if(CastType.LONG_PRIMITIVE.compare(type)) return CastType.LONG_PRIMITIVE.handler.apply(value);
+        if(CastType.SHORT_PRIMITIVE.compare(type)) return CastType.SHORT_PRIMITIVE.handler.apply(value);
+        if(CastType.BYTE_PRIMITIVE.compare(type)) return CastType.BYTE_PRIMITIVE.handler.apply(value);
         throw new Exception(
                 "type %s is not valid. try one of them : '%s'".formatted(
                     type.getTypeName(), 
@@ -81,7 +81,7 @@ public class ConfigUtil {
         }
 
 
-        public boolean equals(Class<?> type){
+        public boolean compare(Class<?> type){
             return this.type.equals(type.getTypeName());
         }
 

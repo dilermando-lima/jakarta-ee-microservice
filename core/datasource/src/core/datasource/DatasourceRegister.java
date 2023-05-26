@@ -15,9 +15,11 @@ public class DatasourceRegister {
     private static final Map<String,EntityManagerFactory> entityManagerFactoryMap = new HashMap<>();
     private static final Map<String,DatasourceProvider> datasourceProviderMap = new HashMap<>();
 
+    private DatasourceRegister(){}
+
     public static synchronized void registerDatasource(DatasourceProvider datasourceProvider){
         Objects.requireNonNull(datasourceProvider);
-        logger.debug("registerDatasource() : datasourceName = {}",datasourceProvider.datasourceName());
+        logger.debug("registerDatasource() : datasourceName = {}", datasourceProvider);
         datasourceProviderMap.put(datasourceProvider.datasourceName(), datasourceProvider);
     }
 
@@ -26,20 +28,27 @@ public class DatasourceRegister {
         return retrieveEntityManagerFactory(datasourceName).createEntityManager();
     }
 
+    public static class DatasourceRegisterException extends RuntimeException {
+        public DatasourceRegisterException(String msg,Throwable throwable){
+            super(msg,throwable);
+        }
+        public DatasourceRegisterException(String msg){
+            super(msg);
+        }
+    }
+
     public static synchronized EntityManagerFactory retrieveEntityManagerFactory(String datasourceName) {
         logger.debug("retrieveEntityManagerFactory() : datasourceName = {}",datasourceName);
         Objects.requireNonNull(datasourceName);
 
         if( !datasourceProviderMap.containsKey(datasourceName))
-            throw new RuntimeException("datasource %s has not been registered".formatted(datasourceName));
+            throw new DatasourceRegisterException("datasource %s has not been registered".formatted(datasourceName));
 
-        if( !entityManagerFactoryMap.containsKey(datasourceName) ){
+        entityManagerFactoryMap.computeIfAbsent(datasourceName,k -> {
             logger.debug("retrieveEntityManagerFactory() : creaing a new EntityManagerFactory datasourceName = {}",datasourceName);
-            entityManagerFactoryMap.put(
-                datasourceName, 
-                datasourceProviderMap.get(datasourceName).createEntityManagerFactory()
-            );
-        }
+            return datasourceProviderMap.get(k).createEntityManagerFactory();
+        });
+
         return entityManagerFactoryMap.get(datasourceName);
     }
 

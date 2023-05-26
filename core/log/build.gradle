@@ -1,5 +1,7 @@
 plugins{
     id 'java'
+    alias(libs.plugins.sonar)
+    id 'jacoco'
 }
 
 repositories {
@@ -19,6 +21,8 @@ sourceSets {
 
 dependencies {
     implementation libs.bundles.log
+
+    testImplementation libs.bundles.junit
 }
 
 jar {
@@ -30,3 +34,17 @@ jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE 
     from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
 }
+
+test {
+    testLogging.events = ["passed", "skipped", "failed"]
+    useJUnitPlatform()
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports{
+        xml.required = true
+    }
+}
+
+tasks['sonar'].dependsOn jacocoTestReport

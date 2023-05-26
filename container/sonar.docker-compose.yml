@@ -1,0 +1,28 @@
+version: "3.9"
+
+# docker-compose --file ./container/sonar.docker-compose.yml up -d
+
+# url console web:    http://localhost:9000/
+# default auth:       username=admin, pass=admin
+# change pass to:     username=admin, pass=sonar
+
+# example changing password with curl ( wait console  http://localhost:9000/ be available )
+# curl -u admin:{YOUR_PASSWORD} -X POST http://localhost:9000/api/users/change_password?login=admin&previousPassword=admin&password=sonar
+
+# create a new token
+# curl -u admin:{YOUR_PASSWORD} -X POST 'http://localhost:9000/api/user_tokens/generate?name={NAME_TOKEN}'
+
+
+services:
+  sonarqube:
+    image: sonarqube:latest
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+    ports:
+      - "9000:9000"
+volumes:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
